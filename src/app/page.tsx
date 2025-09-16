@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <section className="text-center py-20">
@@ -7,12 +9,12 @@ export default function Home() {
       <p className="mt-4 text-lg text-gray-600">
         Shop the latest products with confidence.
       </p>
-      <a
+      <Link
         href="/products"
         className="mt-6 inline-block bg-rose-600 hover:bg-rose-700 text-white px-6 py-3 rounded-lg font-medium transition"
       >
         Shop Now
-      </a>
+      </Link>
     </section>
   );
 }
