@@ -1,22 +1,23 @@
-{
-  "extends": ["next/core-web-vitals", "eslint:recommended"],
-  "rules": {
+/** @type {import('eslint').Linter.Config} */
+module.exports = {
+  extends: ["next/core-web-vitals", "eslint:recommended"],
+  rules: {
     "@next/next/no-img-element": "off",
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "@next/next/no-html-link-for-pages": "off"
   },
-  "overrides": [
+  overrides: [
     {
-      "files": ["src/app/api/**/*.js"],
-      "rules": {
+      files: ["src/app/api/**/*.js"],
+      rules: {
         "@typescript-eslint/no-unused-vars": "off"
       }
     },
     {
-      "files": ["src/models/*.js"],
-      "rules": {
+      files: ["src/models/*.js"],
+      rules: {
         "@typescript-eslint/no-unused-vars": "off"
       }
     }
   ]
-}
+};
