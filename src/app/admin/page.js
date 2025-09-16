@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { toast, Toaster } from "react-hot-toast";
 
@@ -221,11 +222,16 @@ export default function AdminPage() {
                   key={p._id}
                   className="bg-white shadow-lg rounded-xl p-4 flex flex-col transition hover:shadow-2xl hover:scale-[1.02]"
                 >
-                  <img
-                    src={p.imageUrl}
-                    alt={p.name}
-                    className="w-full h-48 object-cover rounded mb-4"
-                  />
+                  <div className="relative w-full h-48 mb-4">
+                    <Image
+                      src={p.imageUrl}
+                      alt={p.name || 'Product image'}
+                      fill
+                      className="object-cover rounded"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority={false}
+                    />
+                  </div>
                   <h3 className="text-lg font-bold text-gray-800">{p.name}</h3>
                   <p className="text-gray-600 font-medium mb-2">${p.price}</p>
                   <p className="text-gray-700 flex-grow">{p.description}</p>

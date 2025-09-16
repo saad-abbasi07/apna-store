@@ -1,35 +1,43 @@
-import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import Order from "../../../models/Order";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+// Define the Order schema
+const orderSchema = new mongoose.Schema(
+  {
+    productId: {
+      type: String,
+      required: true,
+    },
+    customerName: {
+      type: String,
+      required: true,
+    },
+    customerEmail: {
+      type: String,
+      required: true,
+    },
+    customerAddress: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'],
+      default: 'pending',
+    },
+  },
+  { timestamps: true }
+);
 
-async function connectDB() {
-  if (mongoose.connection.readyState >= 1) return;
-  return mongoose.connect(MONGODB_URI);
-}
+// Create the model if it doesn't exist, otherwise use the existing one
+const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);
 
-export async function POST(req) {
-  try {
-    await connectDB();
-    const data = await req.json();
-
-    const newOrder = new Order(data);
-    await newOrder.save();
-
-    return NextResponse.json({ message: "Order saved" });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to save order" }, { status: 500 });
-  }
-}
-
-export async function GET() {
-  try {
-    await connectDB();
-    const orders = await Order.find().sort({ createdAt: -1 });
-    return NextResponse.json(orders);
-  } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch orders" }, { status: 500 });
-  }
-}
+export default Order;
