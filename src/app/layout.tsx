@@ -1,13 +1,18 @@
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { ReactNode } from "react";
 
 export const metadata = {
   title: "ModernStore",
   description: "Professional E-commerce UI with Admin Panel",
 };
 
-export default function RootLayout({ children }) {
+type RootLayoutProps = {
+  children: ReactNode;
+};
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
